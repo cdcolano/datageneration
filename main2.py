@@ -890,6 +890,8 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
                             rotation_velocity=20
                         elif joint.get_type()=="revolute_unwrapped":
                             rotation_velocity=20
+                        elif joint.get_type()=="prismatic":
+                            rotation_velocity=0.1
                         joint.set_drive_property(stiffness=0.2, damping=20, force_limit=np.inf, mode='velocity')
                         joint.set_drive_velocity_target(rotation_velocity)
                         break
