@@ -683,7 +683,7 @@ def compute_multi_view(robot, scene,viewer, camaras,camaras_query, FINITE_JOINT_
             for camara in camaras:
                 camara_take_picture_segmentation(camara, OBJECT, t, camara2Params, points_3d)
             if generated_images<150:
-                selected_cameras = random.sample(camaras_query, random.randint(0, 2))
+                selected_cameras = random.sample(camaras_query, random.randint(1, 6))
                 for camara in selected_cameras:
                     camara_take_rgb_picture(camara,OBJECT, t, False, points_3d, query_camara_2_params)
                     generated_images+=1
@@ -860,7 +860,7 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
     # Load URDF
     folder = Path(folder_path)
     direct_subfolders = [subfolder for subfolder in folder.iterdir() if subfolder.is_dir()]
-    minimum=0 #TODO cambiar a 60
+    minimum=450 #TODO cambiar a 60
     for subfolder in tqdm(direct_subfolders, desc='Processing Subfolders'):
         if subfolder.is_dir():
             mobility_file = subfolder / 'mobility.urdf'
@@ -908,7 +908,7 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
                 #print(path)
                 compute_multi_view(robot, scene, viewer,camaras, camaras_query, FINITE_JOINT_TYPES, path, OBJECT, rotation_velocity, anomalies, camara2Params,camaras_query_2_params)
                 n_objects+=1
-                if n_objects>450:
+                if n_objects>600:
                     return
         #PERFOM MODIFICATIONS TO PERFORM ANOMALIES
         #TAKE PICTURE
