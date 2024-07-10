@@ -833,7 +833,7 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
     #3558
     anomalies=[create_joint_rotation_anomaly,range_anomalies, modify_urdf_with_rotation, modify_urdf_with_translation, create_anomaly_removing, create_joint_out_axis_anomaly]
     #anomalies=[create_joint_out_axis_anomaly]
-    OBJECT=179
+    #OBJECT=179
     #anomalies=[create_joint_out_axis_anomaly]
     
     scene = sapien.Scene()
@@ -860,7 +860,7 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
     # Load URDF
     folder = Path(folder_path)
     direct_subfolders = [subfolder for subfolder in folder.iterdir() if subfolder.is_dir()]
-    minimum=60 #TODO cambiar a 60
+    minimum=450 #TODO cambiar a 60
     for subfolder in tqdm(direct_subfolders, desc='Processing Subfolders'):
         if subfolder.is_dir():
             mobility_file = subfolder / 'mobility.urdf'
@@ -872,7 +872,7 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
                 loader = scene.create_urdf_loader()
                 loader.fix_root_link = True
                 path=str(mobility_file)
-                
+                OBJECT= subfolder.name
                 #urdf_file = sapien.asset.download_partnet_mobility(OBJECT, token)
                 robot = loader.load(path)
                 robot.set_root_pose(sapien.Pose([0, 0, 0], [1,0,0,0]))
@@ -902,7 +902,7 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
                 #print(path)
                 compute_multi_view(robot, scene, viewer,camaras, camaras_query, FINITE_JOINT_TYPES, path, OBJECT, rotation_velocity, anomalies, camara2Params,camaras_query_2_params)
                 n_objects+=1
-                if n_objects>450:
+                if n_objects>600:
                     return
         #PERFOM MODIFICATIONS TO PERFORM ANOMALIES
         #TAKE PICTURE
