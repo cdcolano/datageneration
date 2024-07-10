@@ -680,6 +680,9 @@ def compute_multi_view(robot, scene,viewer, camaras,camaras_query, FINITE_JOINT_
         if not end_movement:
             q_pos=robot.get_qpos()
             current_position=q_pos[0]
+            print(current_position)
+            print(rotation_velocity)
+            print(joint.get_limits()[0][1])
             for camara in camaras:
                 camara_take_picture_segmentation(camara, OBJECT, t, camara2Params, points_3d)
             if generated_images<150:
@@ -891,7 +894,11 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
                         elif joint.get_type()=="revolute_unwrapped":
                             rotation_velocity=20
                         elif joint.get_type()=="prismatic":
-                            rotation_velocity=0.5
+                            limits = joint.get_limits()
+                            upper_limit=limits[0][1]
+                            lower_limit=limits[0][0]
+                            range_steps = upper_limit - lower_limit
+                            rotation_velocity = range_steps / (20 * 0.1)/0.1
                         joint.set_drive_property(stiffness=0.2, damping=20, force_limit=np.inf, mode='velocity')
                         joint.set_drive_velocity_target(rotation_velocity)
                         break
