@@ -680,9 +680,6 @@ def compute_multi_view(robot, scene,viewer, camaras,camaras_query, FINITE_JOINT_
         if not end_movement:
             q_pos=robot.get_qpos()
             current_position=q_pos[0]
-            print(current_position)
-            print(rotation_velocity)
-            print(joint.get_limits()[0][1])
             for camara in camaras:
                 camara_take_picture_segmentation(camara, OBJECT, t, camara2Params, points_3d)
             if generated_images<150:
@@ -863,7 +860,7 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
     # Load URDF
     folder = Path(folder_path)
     direct_subfolders = [subfolder for subfolder in folder.iterdir() if subfolder.is_dir()]
-    minimum=60 #TODO cambiar a 60
+    minimum=0 #TODO cambiar a 60
     for subfolder in tqdm(direct_subfolders, desc='Processing Subfolders'):
         if subfolder.is_dir():
             mobility_file = subfolder / 'mobility.urdf'
