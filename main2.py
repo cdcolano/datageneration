@@ -683,7 +683,7 @@ def compute_multi_view(robot, scene,viewer, camaras,camaras_query, FINITE_JOINT_
             for camara in camaras:
                 camara_take_picture_segmentation(camara, OBJECT, t, camara2Params, points_3d)
             if generated_images<150:
-                selected_cameras = random.sample(camaras_query, random.randint(1, 6))
+                selected_cameras = random.sample(camaras_query, random.randint(1, 5))
                 for camara in selected_cameras:
                     camara_take_rgb_picture(camara,OBJECT, t, False, points_3d, query_camara_2_params)
                     generated_images+=1
@@ -860,7 +860,7 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
     # Load URDF
     folder = Path(folder_path)
     direct_subfolders = [subfolder for subfolder in folder.iterdir() if subfolder.is_dir()]
-    minimum=0 #TODO cambiar a 60
+    minimum=242 #TODO cambiar a 60
     for subfolder in tqdm(direct_subfolders, desc='Processing Subfolders'):
         if subfolder.is_dir():
             mobility_file = subfolder / 'mobility.urdf'
@@ -873,6 +873,7 @@ def demo(dist = -3, elev = 2, image_width = 256, image_height = 256, gray_scale 
                 loader.fix_root_link = True
                 path=str(mobility_file)
                 OBJECT= subfolder.name
+                print(OBJECT)
                 #urdf_file = sapien.asset.download_partnet_mobility(OBJECT, token)
                 robot = loader.load(path)
                 robot.set_root_pose(sapien.Pose([0, 0, 0], [1,0,0,0]))
